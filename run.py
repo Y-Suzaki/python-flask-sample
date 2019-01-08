@@ -26,7 +26,6 @@ def index():
 
 @app.route('/api/hello')
 def api_hello():
-    session['username'] = 'Y-Suzaki'
     return "Hello,World."
 
 
@@ -62,6 +61,13 @@ def login():
             return redirect(url_for('.dashboard'))
         flash('ユーザーまたはパスワードが一致しません。')
     return render_template('login.html', form=form)
+
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    session['username'] = 'guest'
+    flash('ログアウトしました。')
+    return redirect(url_for('.dashboard'))
 
 
 @app.route('/dashboard', methods=['GET'])
